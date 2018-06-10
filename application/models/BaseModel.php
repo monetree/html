@@ -28,9 +28,8 @@ class BaseModel extends CI_model{
 //pagination
 
    public function count_all($table){
-      $this->db->order_by($order_by,$asc_dsc);
-      $rs=$this->db->get($table,1,0);
-       return $rs;
+     $count = $this->db->count_all($table);
+     return $count;
    }
 
 
@@ -43,9 +42,12 @@ class BaseModel extends CI_model{
     }
 
 
-    public function max_id(){
-    $qry="select max(blog_id) as blog_id from admin_blogpost";
-    $query=$this->db->query($qry);
+    public function max_id($id,$table){
+      $this->db->select($id);
+
+       $this->db->order_by($id, 'DESC');
+       $this->db->limit(1);
+       $query = $this->db->get($table);
        return $query;
     }
 
